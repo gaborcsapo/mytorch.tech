@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="css/main.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
 	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
 </head>
 <body id="page-top">
@@ -36,7 +36,7 @@
 					    </div>
 					</form>
 
-					<a href="/emergency" class="btn-xl btn btn-danger" style="padding:30px">EMERGENCY</a>
+					<a onClick='text_emergency()' class="btn-xl btn btn-danger" style="padding:30px">EMERGENCY</a>
 
 					<a href="/danger" class="btn-xl btn btn-warning" style="padding:30px">DANGER</a>
 
@@ -68,6 +68,7 @@
 
 		google.maps.event.addDomListener(window, 'load', initialize);
 	</script>
+	<script type="text/javascript" src="/scripts/twillio.js"></script>
 
 	
 </body>
