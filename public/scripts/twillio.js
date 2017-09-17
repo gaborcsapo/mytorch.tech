@@ -1,13 +1,12 @@
-
-console.log('found')
 function text_emergency(){  
-    var location = 'daaaaaa'
+    /*getting location from input form*/
+    var location =  $('#searchTextField').val();
     
     $.ajax({
       method: "POST", 
       url: "/emergency", 
       data: {'location': location} 
     }).done(function(response){
-      console.log('req sent');
+      window.location.href = '/emergency';
     });
   }

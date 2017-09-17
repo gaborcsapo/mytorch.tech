@@ -28,15 +28,22 @@ app.get('/', function(req, res, err) {
 app.post('/emergency', function(req, res, err) {
 	res.sendFile('public/emergency.html', { root: __dirname })
 	console.log(req.body.location)
-	/*sending SMS*
+	/*sending SMS UNCOMMENT SO THAT IT DOESN"T USE FREE TRIAL
 	client.messages.create({ 
 	    to: recipient, 
-	    from: "+15017250604", 
+	    from: "+16093725592", 
 	    body: req.body.location, 
 	}, function(err, message) { 
+		if (err){
+			console.log(err)
+		}
 	    console.log('SMS sent', message.sid); 
 	});
 	*/
+});
+
+app.get('/emergency', function(req, res, err) {
+	res.sendFile('public/emergency.html', { root: __dirname })
 });
 
 app.get('/danger', function(req, res, err) {
