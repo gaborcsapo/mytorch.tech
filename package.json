@@ -1,0 +1,13 @@
+{
+  "name": "passport-google-oauth2-example",
+  "version": "0.0.0",
+  "dependencies": {
+    "express": ">= 0.0.0",
+    "ejs": ">= 0.0.0",
+    "passport": ">= 0.0.0",
+    "pug": ">= 0.0.0",
+    "connect-mongo": ">= 0.0.0",
+    "passport-google-oauth2": ">= 0.0.0",
+    "express-session": ">= 0.0.0"
+  }
+}

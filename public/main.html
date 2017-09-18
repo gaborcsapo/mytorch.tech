@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>mytorch</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="css/main.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+</head>
+<body id="page-top">
+	<!-- Nav -->
+	<nav class="navbar" id="mainNav">
+		<div class="collapse navbar-collapse">
+            
+        </div> 
+	</nav> 
+
+	<section>
+        <div class="container all-center">
+            <div class="row text-center">
+                <div class="col-xs-12 col-md-8 mx-auto">
+	                <img class="header-icon" src="https://maxcdn.icons8.com/Share/icon/Sports//olympic_torch1600.png" height="80px">
+	                <h1 class="section-heading">
+	                	<strong style="color:#d9534f">mytorch</strong> is here to help you.
+	                </h1>
+
+					<form class="form-horizontal">
+					  	<div class="form-group form-group-lg">
+					  		<br>
+					    	<div class="col-sm-10 col-md-8 mx-auto">
+					      		<input id="searchTextField" class="form-control" type="text" size="50" placeholder="Current Location">
+					    	</div>
+					    </div>
+						<a onClick='text_emergency()' class="btn-xl btn btn-danger" style="padding:30px">EMERGENCY</a>
+						<a href="/danger" class="btn-xl btn btn-warning" style="padding:30px">DANGER</a>
+						<a href="/safewalk" class="btn-xl btn btn-default" style="padding:30px">SAFEWALK</a>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+<!-- 
+	<footer id="footer">
+		<div class="copyright">
+			<ul class="icons">
+				<li><a href="www.twitter.com" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+				<li><a href="www.facebook.com" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+				<li><a href="www.instagram.com" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+				<li><a href="www.snapchat.com" class="icon fa-snapchat"><span class="label">Snapchat</span></a></li>
+			</ul>
+			<p>&copy; Untitled. All rights reserved. </p>
+		</div>
+	</footer>-->
+
+<!-- Scripts -->
+	<script>function initialize() {
+
+		var input = document.getElementById('searchTextField');
+		var autocomplete = new google.maps.places.Autocomplete(input);
+		}
+
+		google.maps.event.addDomListener(window, 'load', initialize);
+	</script>
+	<script type="text/javascript" src="/scripts/twillio.js"></script>
+
+	
+</body>
+</html>
