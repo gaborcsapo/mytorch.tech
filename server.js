@@ -100,7 +100,7 @@ app.get('/auth/google/callback',function(req, res, next) {
     req.logIn(user, function(err) {
       if (err) { return next(err); }
       //if it's not an nyu.edu email, go back to login
-      if ((user.email.endsWith("@nyu.edu"))) { return res.redirect('/login'); }
+      if ((!user.email.endsWith("@nyu.edu"))) { console.log('not nyu', user.email); return res.redirect('/login'); }
       req.session.save(() => {
         setTimeout(function(){
           res.redirect('/main')
