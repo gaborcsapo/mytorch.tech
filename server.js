@@ -16,6 +16,7 @@ var express          = require( 'express' )
 app.use(express.static('public'));
 app.set("view engine", "pug");
 app.set("views", "public/views");
+
 app.use( cookieParser()); 
 app.use( bodyParser.json());
 app.use( bodyParser.urlencoded({
@@ -31,7 +32,6 @@ var accountSid = 'AC0b4dd92564225048f717aaa016bab864';
 var authToken = '36dd70b5af39ea604ed0e883a7a2df9d'; 
 var client = require('twilio')(accountSid, authToken);
 var recipient = '+971563052997';
-
 
 
 /////////////////////////////////////////////////////////////
@@ -80,11 +80,11 @@ app.use( passport.initialize());
 app.use( passport.session());
 
 app.get('/', ensureAuthenticated, function(req, res){
-  res.sendFile('public/index.html', { root: __dirname })
+  res.render('login.pug');
 });
 
 app.get('/login', function(req, res){
-  res.sendFile('public/index.html', { root: __dirname })
+  res.render('login.pug');
 });
 
 //login redirect to the Google login page
@@ -103,7 +103,8 @@ app.get('/auth/google/callback',function(req, res, next) {
       if ((!user.email.endsWith("@nyu.edu"))) { console.log('not nyu', user.email); return res.redirect('/login'); }
       req.session.save(() => {
         setTimeout(function(){
-          res.redirect('/main')
+          res.redirect('/home');
+
           console.log('saving');  
         }, 1000)        
         return;
@@ -130,8 +131,8 @@ function ensureAuthenticated(req, res, next) {
 //Routes MAKE SURE TO AUTHENTICATE
 
 
-app.get('/main', ensureAuthenticated, function(req, res, err) {
-  res.sendFile('public/main.html', { root: __dirname })
+app.get('/home', ensureAuthenticated, function(req, res, err) {
+  res.render('home.pug');
 });
 
 app.post('/emergency', ensureAuthenticated,  function(req, res, err) {

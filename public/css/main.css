@@ -316,3 +316,29 @@ header.masthead {
 .header-icon {
   margin: 1rem;
 }
+
+a.btn {
+  color: #fff !important;;
+}
+
+.btn-danger {
+  background-color: #d9534f;
+  border-color: #d9534f;
+  color: white;
+}
+
+.btn-warning {
+    background-color: #f0ad4e;
+    border-color: #f0ad4e;
+}
+
+.btn-safewalk {
+  color: #fff;
+  background-color: #8bc34a;
+  border-color: #8bc34a;
+}
+
+.btn-safewalk:hover {
+  background-color: #8bc34a;
+  border-color: #8bc34a;
+}

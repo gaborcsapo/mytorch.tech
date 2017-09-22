@@ -1,0 +1,16 @@
+extends layout.pug
+
+block section
+	section
+		img.header-icon(src='https://maxcdn.icons8.com/Share/icon/Sports//olympic_torch1600.png', height='80px')
+		h1.section-heading
+			strong(style='color:#d9534f') mytorch
+			|  is here to help you.
+		form.form-horizontal
+			.form-group.form-group-lg
+				br
+				.col-sm-10.col-md-8.mx-auto
+					input#searchTextField.form-control(type='text', size='50', placeholder='Current Location')
+			a.btn-xl.btn.btn-danger(onclick='text_emergency()', style='padding:30px') EMERGENCY
+			a.btn-xl.btn.btn-warning(href='/danger', style='padding:30px') DANGER
+			a.btn-xl.btn.btn-safewalk(href='/safewalk', style='padding:30px') SAFEWALK

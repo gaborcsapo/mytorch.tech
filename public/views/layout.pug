@@ -1,0 +1,32 @@
+doctype html
+html
+	head
+		title mytorch
+		meta(charset='utf-8')
+		meta(name='viewport', content='width=device-width, initial-scale=1')
+		link(rel='stylesheet', href='css/main.css')
+		link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css')
+		script(src='https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places')
+		script(src='https://code.jquery.com/jquery-3.2.1.min.js')
+	body#page-top
+		// Nav
+		nav.navbar.navbar-toggleable-md.navbar-inverse(style='background-color: #8bc34a;')
+			button.navbar-toggler.navbar-toggler-right(type='button', data-toggle='collapse', data-target='#navbarNavAltMarkup', aria-controls='navbarNavAltMarkup', aria-expanded='false', aria-label='Toggle navigation')
+				span.navbar-toggler-icon
+			a.navbar-brand(href='#') mytorch
+			#navbarNavAltMarkup.collapse.navbar-collapse
+				.navbar-nav
+					a.nav-item.nav-link.active(href='#')
+						| Home 
+						span.sr-only (current)
+					a.nav-item.nav-link(href='/logout') Logout
+
+		section
+		.container.all-center
+			.row.text-center
+				.col-xs-12.col-md-8.mx-auto
+					block section
+		
+		// Scripts
+		script(type='text/javascript', src='/scripts/twillio.js')
+		script(type='text/javascript', src='/scripts/functions.js')
