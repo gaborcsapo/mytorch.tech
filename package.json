@@ -1,13 +1,17 @@
 {
-  "name": "passport-google-oauth2-example",
+  "name": "mytorchtech",
   "version": "0.0.0",
   "dependencies": {
-    "express": ">= 0.0.0",
-    "ejs": ">= 0.0.0",
-    "passport": ">= 0.0.0",
-    "pug": ">= 0.0.0",
+    "body-parser": "^1.18.1",
     "connect-mongo": ">= 0.0.0",
+    "connect-redis": "^3.3.0",
+    "cookie-parser": "^1.4.3",
+    "ejs": ">= 0.0.0",
+    "express": ">= 0.0.0",
+    "express-session": ">= 0.0.0",
+    "passport": "^0.4.0",
     "passport-google-oauth2": ">= 0.0.0",
-    "express-session": ">= 0.0.0"
+    "pug": ">= 0.0.0",
+    "twilio": "^3.6.7"
   }
 }
