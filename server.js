@@ -130,13 +130,12 @@ function ensureAuthenticated(req, res, next) {
 ///////////////////////////////////////////////////////////////////////
 //Routes MAKE SURE TO AUTHENTICATE
 
-
 app.get('/home', ensureAuthenticated, function(req, res, err) {
   res.render('home.pug');
 });
 
 app.post('/emergency', ensureAuthenticated,  function(req, res, err) {
-  res.sendFile('public/emergency.html', { root: __dirname })
+  res.render('emergency.pug')
   console.log(req.body.location)
   /*sending SMS UNCOMMENT SO THAT IT DOESN"T USE FREE TRIAL*/
   /*
@@ -154,11 +153,11 @@ app.post('/emergency', ensureAuthenticated,  function(req, res, err) {
 });
 
 app.get('/emergency', ensureAuthenticated, function(req, res, err) {
-  res.sendFile('public/emergency.html', { root: __dirname })
+  res.render('emergency.pug');
 });
 
 app.get('/danger', ensureAuthenticated, function(req, res, err) {
-  res.sendFile('public/danger.html', { root: __dirname })
+  res.render('public/danger.html', { root: __dirname })
 });
 
 /*
