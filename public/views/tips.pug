@@ -1,0 +1,55 @@
+doctype html
+html
+	head
+		title Torch Tech
+		meta(charset="utf-8")
+		meta(name="viewport", content="width=device-width, initial-scale=1")
+		link(rel="stylesheet", href="{{ url_for('static', filename='styles/main.css') }}")
+		link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css")
+		style.
+			.navbar-toggler {
+			z-index: 1;
+			}
+			@media (max-width: 576px) {
+			nav > .container {
+			width: 100%;
+			}
+			}
+	body#page-top
+		// Nav
+		nav#mainNav.navbar
+			.collapse.navbar-collapse
+				ul.navbar-nav.ml-auto
+					li.nav-item
+						a.nav-link(href="#home") Home
+					li.nav-item
+						a.nav-link(href="#profile") Profile
+		// Banner
+		section#about
+			.container
+				.row.center-block
+					.col-sm-8.col-sm-offset-2.col-md-8.col-md-offset-2.col-xl-8.col-xl-offset-2
+						h1.section-heading.text-center(style="text-transform: initial;") What kind of danger are you in?
+				.row
+					.col-xs-8.col-xs-offset-2.col-md-6.col-md-offset-3.col-xl-6.col-xl-offset-3.multichoice
+						br
+						h2 Signs to call Public Safety
+						ul.list-group
+							li
+								| Alcohol poisoning, unconscious person with low body temperature, pale skin, slow breathing
+							li
+								| To do while help arrives: turn them safely on their side, to avoid choking, monitor them.
+							li Violence between two people
+							li Sexual harassment
+							li Injury
+						h2 Signs to call RA or friends
+						ul.list-group
+							li Potentially escalating situation
+							li Verbal abuse
+							li Agression
+							li Unsafe environment
+					a(href="http://www.mayoclinic.org/diseases-conditions/alcohol-poisoning/symptoms-causes/dxc-20211603") Alcohol poisoning
+					a(href="https://thump.vice.com/en_uk/article/vvnpqx/here-are-six-ways-clubs-can-help-reduce-sexual-assault-and-harassment") Sexual harassment
+					a(href="http://www.redcross.org/take-a-class/first-aid/perfoming-first-aid/first-aid-steps") First aid
+		// Scripts
+		script(src="https://code.jquery.com/jquery-3.2.1.slim.min.js", integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=", crossorigin="anonymous")
