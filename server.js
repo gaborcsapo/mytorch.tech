@@ -12,6 +12,8 @@ var express          = require( 'express' )
   , MongoStore       = require( 'connect-mongo')(session)
   , port             = 8002;
 
+https = require('https');
+
 // configure Express
 app.use(express.static('public'));
 app.set("view engine", "pug");
@@ -22,6 +24,7 @@ app.use( bodyParser.json());
 app.use( bodyParser.urlencoded({
   extended: true
 }));
+
 app.listen(port, function() {
   console.log('Server started on port ', port);
 });
@@ -32,7 +35,6 @@ var accountSid = 'AC0b4dd92564225048f717aaa016bab864';
 var authToken = '36dd70b5af39ea604ed0e883a7a2df9d'; 
 var client = require('twilio')(accountSid, authToken);
 var recipient = '+971563052997';
-
 
 /////////////////////////////////////////////////////////////
 // Google Login API stuff
@@ -136,31 +138,10 @@ app.get('/home', ensureAuthenticated, function(req, res, err) {
   res.send(req.query.location);
 });
 
-  /*sending SMS UNCOMMENT SO THAT IT DOESN"T USE FREE TRIAL*/
-  /*
-
-app.post('/emergency', ensureAuthenticated,  function(req, res, err) {
-  res.render('emergency.pug')
-  console.log(req.body.location)
-
-  client.messages.create({ 
-      to: recipient, 
-      from: "+16093725592", 
-      body: req.body.location, 
-  }, function(err, message) { 
-    if (err){
-      console.log(err)
-    }
-      console.log('SMS sent', message.sid); 
-  });
-
-});
-
-  */
 
 app.get('/emergency', ensureAuthenticated, function(req, res, err) {
   res.render('emergency.pug', {'myLocation': req.query.myLocation});
-  /*
+  
   client.messages.create({ 
       to: recipient, 
       from: "+16093725592", 
@@ -171,7 +152,7 @@ app.get('/emergency', ensureAuthenticated, function(req, res, err) {
     }
       console.log('SMS sent', message.sid); 
   });
-  */
+  
 });
 
 app.get('/danger', ensureAuthenticated, function(req, res, err) {
@@ -208,56 +189,3 @@ app.post('/danger/submit', ensureAuthenticated, function(req, res, err) {
 app.get('/tips', ensureAuthenticated, function(req, res, err) {
   res.render('tips.pug')
 });
-
-/*
-mongoose.connect("mongodb://localhost/test");
-
-var db = mongoose.connection;
-
-db.on('error', console.error.bind(console, 'connection error:'));
-
-var Report;
-
-db.on('open', function() {
-  console.log("Connection to DB successful");
-
-  var reportSchema = mongoose.Schema({
-    netid: String,
-    type: String,
-    bystander: Boolean,
-    date: { type: Date, default: Date.now },
-    involved: String,
-    description: String
-  });
-
-  Report = mongoose.model('Report', reportSchema);
-
-  Report.find(function(err, all_reports){
-    console.log(all_reports);
-  });
-});
-
-app.get('/emergency-reported', ensureAuthenticated, function(req, res, err){
-  console.log(req.query);
-
-  var new_report = new Report({
-    netid: req.query.em_netid,
-    type: "emergency",
-    bystander: req.query.em_bystander,
-    involved: req.query.em_involved,
-    description: req.query.em_description
-  });
-
-  new_report.save(function(err, new_report){
-    if(err)
-      return console.error(err)
-    else
-      console.log('saved new report')
-  });
-
-  res.send('Successful save');
-});
-*/
-
-
-
