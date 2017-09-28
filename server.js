@@ -137,7 +137,6 @@ function ensureAuthenticated(req, res, next) {
 ///////////////////////////////////////////////////////////////////////
 app.get('/home', ensureAuthenticated, function(req, res, err) {
   res.render('home.pug');
-  res.send(req.query.location);
 });
 
 
