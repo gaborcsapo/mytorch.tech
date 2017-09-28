@@ -10,7 +10,7 @@ var express          = require( 'express' )
   , GoogleStrategy   = require( 'passport-google-oauth2' ).Strategy
   , pug              = require( 'pug')
   , MongoStore       = require( 'connect-mongo')(session)
-  , port             = 8002;
+  , port             = process.env.PORT;
 
 https = require('https');
 
