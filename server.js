@@ -9,6 +9,7 @@ var express          = require( 'express' )
   , RedisStore       = require( 'connect-redis' )( session )
   , GoogleStrategy   = require( 'passport-google-oauth2' ).Strategy
   , pug              = require( 'pug')
+  , favicon          = require( 'serve-favicon');
   , port             = process.env.PORT;
 
 https = require('https');
@@ -17,6 +18,7 @@ https = require('https');
 app.use(express.static('public'));
 app.set("view engine", "pug");
 app.set("views", "public/views");
+app.use(favicon('public','favicon.ico'));
 
 app.use( cookieParser()); 
 app.use( bodyParser.json());
@@ -146,7 +148,7 @@ app.get('/emergency', ensureAuthenticated, function(req, res, err) {
   client.messages.create({ 
       to: recipient, 
       from: "+16093725592", 
-      body: req.query.location + " is the location.", 
+      body: req.query.myLocation + " is the location.", 
   }, function(err, message) { 
     if (err){
       console.log(err)
