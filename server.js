@@ -133,8 +133,9 @@ function ensureAuthenticated(req, res, next) {
 //Routes MAKE SURE TO AUTHENTICATE
 
 app.get('/home', ensureAuthenticated, function(req, res, err) {
-  res.render('home.pug');
   res.send(req.query.location);
+  res.render('home.pug');
+  
 });
 
 
