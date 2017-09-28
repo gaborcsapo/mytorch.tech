@@ -205,6 +205,9 @@ app.post('/danger/submit', ensureAuthenticated, function(req, res, err) {
   res.render('danger-submit.pug');
 });
 
+app.get('/tips', ensureAuthenticated, function(req, res, err) {
+  res.render('tips.pug')
+});
 
 /*
 mongoose.connect("mongodb://localhost/test");

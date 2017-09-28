@@ -1,7 +1,9 @@
 extends layout.pug
 
 block section
-	h1.section-heading.mb-5 Contact RAs or Friends
+	.alert.alert-success
+		h3= "We will call RAs or Friends to " + myLocation + "."
+
 	form#dangerSubmit.form-horizontal(method="POST" action="/danger/submit")
 		h3.mt-4 Who do you want to call?
 		p.mb-4 You can call both.

@@ -1,15 +1,14 @@
 extends layout.pug
 
 block section
-	.multichoice
-		.alert.alert-success
-			h3= "Public Safety is called to " + myLocation
-				strong 
-				| . You should be receiving help in 
-				strong 3 mins
-				| .
-			p
-				| In the mean time, please help us collect more information about the incident. Every word counts.
+	.alert.alert-success
+		h3= "Public Safety is called to " + myLocation
+			strong 
+			| . You should be receiving help in 
+			strong 3 mins
+			| .
+		p
+			| In the mean time, please help us collect more information about the incident. Every word counts.
 
 block section2
 	.report
@@ -30,4 +29,4 @@ block section2
 				label(for='comment') What happened?
 				textarea#comment.form-control(rows='5')
 				br
-				button.btn-xl.btn.btn-default(type="submit" href="/emergency/submit") Submit
+				button.btn-xl.btn.btn-default(type="submit" href="/emergency/submit") Call Help
