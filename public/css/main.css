@@ -1,25 +1,29 @@
 body {
   overflow-x: hidden;
+  font-family: 'Open Sans', sans-serif;
 }
 
 p {
   line-height: 1.5;
   overflow: hidden;
-  font-size: 1rem
+  font-size: 1rem;
+  font-family: 'Open Sans', sans-serif;
 }
 
 
 a {
   color: #fed136; }
   a:hover, a:focus, a:active, a.active {
-    color: #fec503; }
+    color: #fec503;
+  font-family: 'Open Sans', sans-serif;
+}
 
 h1,
 h2,
 h3,
  {
   font-weight: 700;
-  font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Montserrat', sans-serif;
   text-transform: uppercase;
   line-height: 1.5 }
 
@@ -30,7 +34,7 @@ h3 {
 h4,
 h5,
 h6 {
-  font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 section {
@@ -48,7 +52,7 @@ section h3.section-subheading {
   /* font-style: italic; */
   /* margin-bottom: 75px; */
   text-transform: none;
-  font-family: 'Droid Serif', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Montserrat', sans-serif;
   max-width: 800px;
   display: block;
   margin: auto;
@@ -107,7 +111,7 @@ small {
   color: white;
   border-color: #8bc34a;
   background-color: #8bc34a;
-  font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Montserrat', sans-serif;
   text-transform: uppercase;
   margin: auto;
   display: block !important;
