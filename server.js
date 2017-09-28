@@ -174,15 +174,22 @@ app.get('/emergency', ensureAuthenticated, function(req, res, err) {
   */
 });
 
-/*
-app.get('/emergency', function(req, res, err) {
-  res.render('emergency.pug');
-})
-*/
-
 app.get('/danger', ensureAuthenticated, function(req, res, err) {
-  res.render('danger.pug', {'location': location})
+  res.render('danger.pug', {'myLocation': req.query.myLocation});
+  /*
+  client.messages.create({ 
+      to: recipient, 
+      from: "+16093725592", 
+      body: req.query.location + " is the location.", 
+  }, function(err, message) { 
+    if (err){
+      console.log(err)
+    }
+      console.log('SMS sent', message.sid); 
+  });
+  */
 });
+
 
 app.get('/settings', ensureAuthenticated, function(req, res, err) {
   res.render('settings.pug')
@@ -191,6 +198,11 @@ app.get('/settings', ensureAuthenticated, function(req, res, err) {
 app.post('/emergency/submit', ensureAuthenticated, function(req, res, err) {
   console.log(req.body);
   res.render('emergency-submit.pug');
+});
+
+app.post('/danger/submit', ensureAuthenticated, function(req, res, err) {
+  console.log(req.body);
+  res.render('danger-submit.pug');
 });
 
 

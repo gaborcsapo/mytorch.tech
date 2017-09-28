@@ -1,26 +1,33 @@
 extends layout.pug
 
 block section
-	.report
-		h2 What kind of danger are you in?
-		h3 3 friends close to you will be notified and to come and get you.
-	.multichoice.col-md-6.col-xs-10.mx-auto.text-left
-		br
-		.checkbox
-			label
-				input(type='checkbox', value='')
-				|   Verbal Assault
-		.checkbox
-			label
-				input(type='checkbox', value='')
-				|   Bullying
-		.checkbox.disabled
-			label
-				input(type='checkbox', value='')
-				|   Intoxication
-		.checkbox.disabled
-			label
-				input(type='checkbox', value='')
-				|   Other
-		br
-		a.btn-xl.btn.btn-default(href="/danger/submit") done!
+	h1.section-heading.mb-5 Contact RAs or Friends
+	form#dangerSubmit.form-horizontal(method="POST" action="/danger/submit")
+		h3.mt-4 Who do you want to call?
+		p.mb-4 You can call both.
+		.multichoice.col-md-8.col-xs-10.mx-auto.text-left
+			.checkbox
+				label
+					input(type='checkbox', value='contactRas')
+					|   Residential Assistants
+			.checkbox
+				label
+					input(type='checkbox', value='contactFriends')
+					|   Friends
+		hr.my-4
+		h3.my-4 What's happening?
+		.multichoice.col-md-8.col-xs-10.mx-auto.text-left
+			.checkbox
+				label
+					input(type='checkbox', value='aggression')
+					|   Verbal/Physical Aggression
+			.checkbox.disabled
+				label
+					input(type='checkbox', value='intox')
+					|   Intoxication
+			.checkbox.disabled
+				label
+					input(type='checkbox', value='other')
+					|   Other
+			br
+			button.btn-xl.btn.btn-default(action="submit") Get Help

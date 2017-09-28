@@ -1,6 +1,6 @@
 body {
   overflow-x: hidden;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+}
 
 p {
   line-height: 1.5;
@@ -259,6 +259,7 @@ a.btn {
   padding: 20px;
   text-align: center;
   font-weight: bold;
+  line-height: 1.5;
 }
 
 .alert > p {
@@ -289,4 +290,8 @@ a.btn {
 
 .btn-margin {
   margin-top: 1rem;
+}
+
+.break {
+  padding-bottom: 2rem;
 }

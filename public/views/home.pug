@@ -4,14 +4,14 @@ block section
 	h1.section-heading
 		strong(style='color:#d9534f') mytorch
 		|  is here to help you.
-	form.form-horizontal(method="GET" action="/emergency")
+	form#locationSubmit.form-horizontal(method="GET" action="/emergency")
 		.form-group.form-group-lg
 			br
 			.col-sm-10.col-md-8.mx-auto
 				input#myLocation.form-control(name="myLocation" type='text', size='50', placeholder='Current Location')
 		.btn-margin
-			button.btn-xl.btn.btn-danger(type="submit") PUBLIC SAFETY
+			button#emergencyBtn.btn-xl.btn.btn-danger(type="submit") PUBLIC SAFETY
 		.btn-margin
-			button.btn-xl.btn.btn-warning(type="submit" href='/danger') RA &amp; FRIENDS
+			button#dangerBtn.btn-xl.btn.btn-warning(type="submit") RA &amp; FRIENDS
 		.btn-margin
-			button.btn-xl.btn.btn-safewalk(type="submit" href='/safewalk') SAFETY TIPS
+			button#tipsBtn.btn-xl.btn.btn-safewalk(type="submit") SAFETY TIPS
