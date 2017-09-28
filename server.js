@@ -106,6 +106,7 @@ app.get('/auth/google/callback',function(req, res, next) {
           res.redirect('/home');
 
           console.log('saving');  
+          console.log(user);
         }, 1000)        
         return;
       })      
@@ -132,13 +133,16 @@ function ensureAuthenticated(req, res, next) {
 
 app.get('/home', ensureAuthenticated, function(req, res, err) {
   res.render('home.pug');
+  res.send(req.query.location);
 });
+
+  /*sending SMS UNCOMMENT SO THAT IT DOESN"T USE FREE TRIAL*/
+  /*
 
 app.post('/emergency', ensureAuthenticated,  function(req, res, err) {
   res.render('emergency.pug')
   console.log(req.body.location)
-  /*sending SMS UNCOMMENT SO THAT IT DOESN"T USE FREE TRIAL*/
-  /*
+
   client.messages.create({ 
       to: recipient, 
       from: "+16093725592", 
@@ -149,16 +153,46 @@ app.post('/emergency', ensureAuthenticated,  function(req, res, err) {
     }
       console.log('SMS sent', message.sid); 
   });
+
+});
+
+  */
+
+app.get('/emergency', ensureAuthenticated, function(req, res, err) {
+  res.render('emergency.pug', {'myLocation': req.query.myLocation});
+  /*
+  client.messages.create({ 
+      to: recipient, 
+      from: "+16093725592", 
+      body: req.query.location + " is the location.", 
+  }, function(err, message) { 
+    if (err){
+      console.log(err)
+    }
+      console.log('SMS sent', message.sid); 
+  });
   */
 });
 
-app.get('/emergency', ensureAuthenticated, function(req, res, err) {
+/*
+app.get('/emergency', function(req, res, err) {
   res.render('emergency.pug');
-});
+})
+*/
 
 app.get('/danger', ensureAuthenticated, function(req, res, err) {
-  res.render('public/danger.html', { root: __dirname })
+  res.render('danger.pug', {'location': location})
 });
+
+app.get('/settings', ensureAuthenticated, function(req, res, err) {
+  res.render('settings.pug')
+});
+
+app.post('/emergency/submit', ensureAuthenticated, function(req, res, err) {
+  console.log(req.body);
+  res.render('emergency-submit.pug');
+});
+
 
 /*
 mongoose.connect("mongodb://localhost/test");

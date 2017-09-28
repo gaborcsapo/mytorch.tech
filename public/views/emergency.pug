@@ -1,13 +1,10 @@
-extend layout.pug
+extends layout.pug
 
 block section
 	.multichoice
-		br
-		img.center-block(src='https://maxcdn.icons8.com/Share/icon/Sports//olympic_torch1600.png', height='130px')
 		.alert.alert-success
-			h3
-				| Help is on the way to 
-				strong {{ user_add }}
+			h3= "Public Safety is called to " + myLocation
+				strong 
 				| . You should be receiving help in 
 				strong 3 mins
 				| .
@@ -16,20 +13,21 @@ block section
 
 block section2
 	.report
-		h2 Tell us more
-		.form-check
-			label.form-check-label
-				input.form-check-input.text-center(type='checkbox')
-				| 	I was a bystander.
-		.form-group
-			label(for='exampleInputEmail1') Your College ID
-			input#exampleInputEmail1.form-control(type='email', aria-describedby='emailHelp', placeholder='Enter email')
-			small#emailHelp.form-text.text-muted(style='font-size: 14px;') This field is optional. You can choose to stay annonymous.
-		.form-group
-			label(for='pwd') Who was involved?
-			input#pwd.form-control(type='password')
-		.form-group
-			label(for='comment') What happened?
-			textarea#comment.form-control(rows='5')
-		br
-		a.btn-xl.btn.btn-default.center-block(href="{{ url_for('urgent_submit_btn') }}") Submit
+		h2 Describe the Incident
+		form.form-horizontal(method="POST" action="/emergency/submit")
+			.form-check
+				label.form-check-label
+					input.form-check-input.text-center(type='checkbox')
+					| 	I was a bystander.
+			.form-group
+				label(for='nyuemail') Your NYU Email
+				input#nyuemail.form-control(type='email', aria-describedby='emailHelp', placeholder='Enter email')
+				small#emailHelp.form-text.text-muted(style='font-size: 14px;') This field is optional. You can choose to stay annonymous.
+			.form-group
+				label(for='involved') Who was involved?
+				input#involved.form-control(type='text')
+			.form-group
+				label(for='comment') What happened?
+				textarea#comment.form-control(rows='5')
+				br
+				button.btn-xl.btn.btn-default(type="submit" href="/emergency/submit") Submit

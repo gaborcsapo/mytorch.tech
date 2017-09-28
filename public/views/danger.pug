@@ -1,0 +1,26 @@
+extends layout.pug
+
+block section
+	.report
+		h2 What kind of danger are you in?
+		h3 3 friends close to you will be notified and to come and get you.
+	.multichoice.col-md-6.col-xs-10.mx-auto.text-left
+		br
+		.checkbox
+			label
+				input(type='checkbox', value='')
+				|   Verbal Assault
+		.checkbox
+			label
+				input(type='checkbox', value='')
+				|   Bullying
+		.checkbox.disabled
+			label
+				input(type='checkbox', value='')
+				|   Intoxication
+		.checkbox.disabled
+			label
+				input(type='checkbox', value='')
+				|   Other
+		br
+		a.btn-xl.btn.btn-default(href="/danger/submit") done!

@@ -1,5 +1,9 @@
 doctype html
 html
+	block link
+		-var selected = 'Home';
+	-var menu = {'Home':'/home','Settings':'/settings','Logout':'/logout'};
+
 	head
 		title mytorch
 		meta(charset='utf-8')
@@ -8,7 +12,7 @@ html
 		link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css')
 		script(src='https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places')
 		script(src='https://code.jquery.com/jquery-3.2.1.min.js')
-			
+
 	body#page-top
 		// Nav
 		nav.navbar.navbar-toggleable-md.navbar-inverse(style='background-color: #8bc34a;')
@@ -17,15 +21,17 @@ html
 			a.navbar-brand(href='#') mytorch
 			#navbarNavAltMarkup.collapse.navbar-collapse
 				.navbar-nav
-					a.nav-item.nav-link.active(href='#')
-						| Home 
-						span.sr-only (current)
-					a.nav-item.nav-link(href='/logout') Logout
+					each val, key in menu
+						if selected === key
+							a.nav-item.nav-link.active(href=val)= key
+						else
+							a.nav-item.nav-link(href=val)= key
 
 		section
-			.container.all-center
-				.row.text-center
+			.container
+				.row
 					.col-xs-12.col-md-8.mx-auto
+						img.header-icon.center-block(src='https://maxcdn.icons8.com/Share/icon/Sports//olympic_torch1600.png', height='150px')
 						block section
 
 			.container

@@ -1,9 +1,9 @@
 function text_emergency(){  
     /*getting location from input form*/
-    var location =  $('#searchTextField').val();
+    var location =  $('#myLocation').val();
     
     $.ajax({
-      method: "POST", 
+      method: "GET", 
       url: "/emergency", 
       data: {'location': location} 
     }).done(function(response){
