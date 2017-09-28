@@ -37,6 +37,7 @@ var recipient = '+971563052997';
 
 /////////////////////////////////////////////////////////////
 // Google Login API stuff
+/////////////////////////////////////////////////////////////
 var GOOGLE_CLIENT_ID      = "940480382034-7tdll4daeqk1n5nja83e3cp4untm9dtf.apps.googleusercontent.com"
   , GOOGLE_CLIENT_SECRET  = "DANHTfljRXhm8zkPdiTGkO5Y";
 
@@ -64,6 +65,7 @@ passport.use(new GoogleStrategy({
   }
 ));
 
+//saving session
 app.use(cookieParser());
 app.enable('trust proxy'); // add this line
 app.use( session({
@@ -84,6 +86,7 @@ app.get('/', ensureAuthenticated, function(req, res){
   res.render('login.pug');
 });
 
+//click on login
 app.get('/login', function(req, res){
   res.render('login.pug');
 });
@@ -130,12 +133,11 @@ function ensureAuthenticated(req, res, next) {
 
 
 ///////////////////////////////////////////////////////////////////////
-//Routes MAKE SURE TO AUTHENTICATE
-
+//Routes, MAKE SURE TO AUTHENTICATE
+///////////////////////////////////////////////////////////////////////
 app.get('/home', ensureAuthenticated, function(req, res, err) {
-  res.send(req.query.location);
   res.render('home.pug');
-  
+  res.send(req.query.location);
 });
 
 
@@ -157,7 +159,7 @@ app.get('/emergency', ensureAuthenticated, function(req, res, err) {
 
 app.get('/danger', ensureAuthenticated, function(req, res, err) {
   res.render('danger.pug', {'myLocation': req.query.myLocation});
-  /*
+  
   client.messages.create({ 
       to: recipient, 
       from: "+16093725592", 
@@ -168,7 +170,7 @@ app.get('/danger', ensureAuthenticated, function(req, res, err) {
     }
       console.log('SMS sent', message.sid); 
   });
-  */
+  
 });
 
 
