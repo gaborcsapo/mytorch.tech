@@ -9,11 +9,14 @@ var express          = require( 'express' )
   , RedisStore       = require( 'connect-redis' )( session )
   , GoogleStrategy   = require( 'passport-google-oauth2' ).Strategy
   , pug              = require( 'pug')
+  , mongoose         = require('mongoose')
   //, favicon          = require( 'serve-favicon')
   , port             = 8002;//process.env.PORT;
 
 https = require('https');
-
+/////////////////////////////////////////////////////////////
+//Configuration
+/////////////////////////////////////////////////////////////
 // configure Express
 app.use(express.static('public'));
 app.set("view engine", "pug");
@@ -30,8 +33,19 @@ app.listen(port, function() {
   console.log('Server started on port ', port);
 });
 
+//Set up default mongoose connection
+var mongoDB = 'mongodb://127.0.0.1/my_database';
+mongoose.connect(mongoDB, {useMongoClient: true},function(){
+    /* Drop the DB */
+    //mongoose.connection.db.dropDatabase();
+});
 
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+/////////////////////////////////////////////////////////////
 //Twillio setup
+/////////////////////////////////////////////////////////////
 var accountSid = 'AC0b4dd92564225048f717aaa016bab864'; 
 var authToken = '36dd70b5af39ea604ed0e883a7a2df9d'; 
 var client = require('twilio')(accountSid, authToken);
@@ -139,13 +153,87 @@ function lookup_db(email, res){
     return res.redirect('/login'); 
   }
   //check if first visit
-  if (email in DB){
-    res.redirect('/home');
-    console.log('new session with returning user: ', email);
-  } else {
-    res.redirect('/tutorial');
-  }
-}  
+  usermodel.findOne({myemail: req.session.passport.user.email}, function(err, found_user){
+    if (err) {
+        console.log("The error while accessing the colleciton is " + err);
+    }
+    if (found_user){
+        res.redirect('/home');
+        console.log('new session with returning user: ', email);
+    } else {
+      res.redirect('/tutorial');
+    }
+})  
+
+var Schema = mongoose.Schema;
+var userschema = new Schema({
+    myemail: String,
+    myphone: String,
+    name1: String,
+    name2: String,
+    name3: String,
+    phone1: String,
+    phone2: String,
+    phone3: String,
+    netid1: String,
+    netid2: String,
+    netid3: String,
+});
+var usermodel = mongoose.model('udermodel', userschema );
+
+function add_or_update(req){
+  usermodel.findOne({myemail: req.session.passport.user.email}, function(err, found_user){
+    if (err) {
+        console.log("The error while updating colleciton is " + err);
+    }
+    if (found_user){
+        console.log('User already exists, info updated')
+        found_user.myemail = req.session.passport.user.email
+        found_user.myphone = req.body.myphone
+        found_user.name1 = req.body.name2
+        found_user.name2 = req.body.name3
+        found_user.name3 = req.body.name3
+        found_user.phone1 = req.body.phone1
+        found_user.phone2 = req.body.phone2
+        found_user.phone3 = req.body.phone3
+        found_user.netid1 = req.body.netid1
+        found_user.netid2 = req.body.netid2
+        found_user.netid3 = req.body.netid3
+        found_user.save(function(err) {
+            if (err)
+                throw err
+            return (null, found_user)
+        });
+    }
+    if (!found_user) {
+      console.log('Saving new user', req.body, req.session.passport.user.email)
+      var newuser = new usermodel({
+        myemail: req.session.passport.user.email,
+        myphone: req.body.myphone,
+        name1: req.body.name2,
+        name2: req.body.name3,
+        name3: req.body.name3,
+        phone1: req.body.phone1,
+        phone2: req.body.phone2,
+        phone3: req.body.phone3,
+        netid1: req.body.netid1,
+        netid2: req.body.netid2,
+        netid3: req.body.netid3,
+      });
+      newuser.save(function (err, fluffy) {
+        if (err) return console.error(err);
+      });
+    }
+  })
+}
+
+function print_db(){
+  // PRINTS ALL EMTRIES
+  usermodel.find(function (err, kittens) {
+    if (err) return console.error(err);
+    console.log(kittens);
+  })
+}
 
 ///////////////////////////////////////////////////////////////////////
 //Routes, MAKE SURE TO AUTHENTICATE
@@ -197,7 +285,8 @@ app.get('/settings', ensureAuthenticated, function(req, res, err) {
 });
 
 app.post('/settings/saved', ensureAuthenticated, function(req, res, err) {
-  console.log(req.body)
+  add_or_update(req)
+  print_db()
   res.redirect('/home')
 });
 
