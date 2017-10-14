@@ -11,7 +11,7 @@ var express          = require( 'express' )
   , pug              = require( 'pug')
   , mongoose         = require('mongoose')
   //, favicon          = require( 'serve-favicon')
-  , port             = 8002;//process.env.PORT;
+  , port             = process.env.PORT || 8002;
 
 https = require('https');
 /////////////////////////////////////////////////////////////
@@ -34,8 +34,17 @@ app.listen(port, function() {
 });
 
 //Set up default mongoose connection
-var mongoDB = 'mongodb://127.0.0.1/my_database';
-mongoose.connect(mongoDB, {useMongoClient: true},function(){
+ var mongoDB =
+    process.env.MONGOLAB_URI ||
+    process.env.MONGOHQ_URL ||
+    'mongodb://127.0.0.1/my_database';
+
+mongoose.connect(mongoDB, {useMongoClient: true}, function(){
+    if (err) {
+    console.log ('ERROR connecting to: ' + uristring + '. ' + err);
+    } else {
+    console.log ('Succeeded connected to: ' + uristring);
+    }
     /* Drop the DB */
     //mongoose.connection.db.dropDatabase();
 });
