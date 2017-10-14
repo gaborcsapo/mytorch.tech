@@ -34,7 +34,7 @@ app.listen(port, function() {
 });
 
 //Set up default mongoose connection
- var mongoDB = 'mongodb://heroku_zrbvl1q1:rd9fsak8ac7np3ud23hagmu5fg@ds153113.mlab.com:53113/heroku_zrbvl1q1'
+var mongoDB = 'mongodb://heroku_zrbvl1q1:rd9fsak8ac7np3ud23hagmu5fg@ds153113.mlab.com:53113/heroku_zrbvl1q1'
     // process.env.MONGOLAB_URI ||
     // process.env.MONGODB_URI ||
     // process.env.MONGOHQ_URL ||
@@ -42,9 +42,9 @@ app.listen(port, function() {
 
 mongoose.connect(mongoDB, {useMongoClient: true}, function(err){
     if (err) {
-    console.log ('ERROR connecting to: ' + uristring + '. ' + err);
+    console.log ('ERROR connecting: ' + err);
     } else {
-    console.log ('Succeeded connected to: ' + uristring);
+    console.log ('Succeeded connected');
     }
     /* Drop the DB */
     //mongoose.connection.db.dropDatabase();
