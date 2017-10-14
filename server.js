@@ -34,11 +34,11 @@ app.listen(port, function() {
 });
 
 //Set up default mongoose connection
- var mongoDB =
-    process.env.MONGOLAB_URI ||
-    process.env.MONGODB_URI ||
-    process.env.MONGOHQ_URL ||
-    'mongodb://127.0.0.1/my_database';
+ var mongoDB = 'mongodb://heroku_zrbvl1q1:rd9fsak8ac7np3ud23hagmu5fg@ds153113.mlab.com:53113/heroku_zrbvl1q1'
+    // process.env.MONGOLAB_URI ||
+    // process.env.MONGODB_URI ||
+    // process.env.MONGOHQ_URL ||
+    // 'mongodb://127.0.0.1/my_database';
 
 mongoose.connect(mongoDB, {useMongoClient: true}, function(){
     if (err) {
