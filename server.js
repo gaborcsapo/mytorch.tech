@@ -153,17 +153,18 @@ function lookup_db(email, res){
     return res.redirect('/login'); 
   }
   //check if first visit
-  usermodel.findOne({myemail: req.session.passport.user.email}, function(err, found_user){
+  usermodel.findOne({myemail: email}, function(err, found_user){
     if (err) {
         console.log("The error while accessing the colleciton is " + err);
     }
     if (found_user){
         res.redirect('/home');
-        console.log('new session with returning user: ', email);
+        console.log('new session with returning user: ', found_user);
     } else {
       res.redirect('/tutorial');
     }
-})  
+  })
+}  
 
 var Schema = mongoose.Schema;
 var userschema = new Schema({
