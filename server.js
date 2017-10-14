@@ -40,7 +40,7 @@ app.listen(port, function() {
     // process.env.MONGOHQ_URL ||
     // 'mongodb://127.0.0.1/my_database';
 
-mongoose.connect(mongoDB, {useMongoClient: true}, function(){
+mongoose.connect(mongoDB, {useMongoClient: true}, function(err){
     if (err) {
     console.log ('ERROR connecting to: ' + uristring + '. ' + err);
     } else {
