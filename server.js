@@ -36,6 +36,7 @@ app.listen(port, function() {
 //Set up default mongoose connection
  var mongoDB =
     process.env.MONGOLAB_URI ||
+    process.env.MONGODB_URI ||
     process.env.MONGOHQ_URL ||
     'mongodb://127.0.0.1/my_database';
 
