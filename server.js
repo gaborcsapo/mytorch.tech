@@ -9,8 +9,8 @@ var express          = require( 'express' )
   , RedisStore       = require( 'connect-redis' )( session )
   , GoogleStrategy   = require( 'passport-google-oauth2' ).Strategy
   , pug              = require( 'pug')
-  , favicon          = require( 'serve-favicon');
-  , port             = process.env.PORT;
+  //, favicon          = require( 'serve-favicon')
+  , port             = 8002;//process.env.PORT;
 
 https = require('https');
 
@@ -18,7 +18,7 @@ https = require('https');
 app.use(express.static('public'));
 app.set("view engine", "pug");
 app.set("views", "public/views");
-app.use(favicon('public','favicon.ico'));
+//app.use(favicon('public','favicon.ico'));
 
 app.use( cookieParser()); 
 app.use( bodyParser.json());
@@ -105,14 +105,9 @@ app.get('/auth/google/callback',function(req, res, next) {
     if (!user) { return res.redirect('/login'); }
     req.logIn(user, function(err) {
       if (err) { return next(err); }
-      //if it's not an nyu.edu email, go back to login
-      if ((!user.email.endsWith("@nyu.edu"))) { console.log('not nyu', user.email); return res.redirect('/login'); }
       req.session.save(() => {
         setTimeout(function(){
-          res.redirect('/home');
-
-          console.log('saving');  
-          console.log(user);
+          lookup_db(user.email, res)
         }, 1000)        
         return;
       })      
@@ -132,7 +127,25 @@ function ensureAuthenticated(req, res, next) {
   res.redirect('/login');
 }
 
+///////////////////////////////////////////////////////////////////////
+//Database interaction
+///////////////////////////////////////////////////////////////////////
+var DB = {}
 
+function lookup_db(email, res){
+  //check if nyu email
+  if ((!email.endsWith("@nyu.edu"))){
+    console.log('not nyu', email); 
+    return res.redirect('/login'); 
+  }
+  //check if first visit
+  if (email in DB){
+    res.redirect('/home');
+    console.log('new session with returning user: ', email);
+  } else {
+    res.redirect('/tutorial');
+  }
+}  
 
 ///////////////////////////////////////////////////////////////////////
 //Routes, MAKE SURE TO AUTHENTICATE
@@ -145,38 +158,47 @@ app.get('/home', ensureAuthenticated, function(req, res, err) {
 app.get('/emergency', ensureAuthenticated, function(req, res, err) {
   res.render('emergency.pug', {'myLocation': req.query.myLocation});
   
-  client.messages.create({ 
-      to: recipient, 
-      from: "+16093725592", 
-      body: req.query.myLocation + " is the location.", 
-  }, function(err, message) { 
-    if (err){
-      console.log(err)
-    }
-      console.log('SMS sent', message.sid); 
-  });
+  // client.messages.create({ 
+  //     to: recipient, 
+  //     from: "+16093725592", 
+  //     body: req.query.myLocation + " is the location.", 
+  // }, function(err, message) { 
+  //   if (err){
+  //     console.log(err)
+  //   }
+  //     console.log('SMS sent', message.sid); 
+  // });
   
 });
 
 app.get('/danger', ensureAuthenticated, function(req, res, err) {
   res.render('danger.pug', {'myLocation': req.query.myLocation});
   
-  client.messages.create({ 
-      to: recipient, 
-      from: "+16093725592", 
-      body: req.query.location + " is the location.", 
-  }, function(err, message) { 
-    if (err){
-      console.log(err)
-    }
-      console.log('SMS sent', message.sid); 
-  });
+  // client.messages.create({ 
+  //     to: recipient, 
+  //     from: "+16093725592", 
+  //     body: req.query.location + " is the location.", 
+  // }, function(err, message) { 
+  //   if (err){
+  //     console.log(err)
+  //   }
+  //     console.log('SMS sent', message.sid); 
+  // });
   
 });
 
+app.get('/tutorial', ensureAuthenticated, function(req, res, err) {
+  console.log(req)
+  res.render('tutorial.pug')
+});
 
 app.get('/settings', ensureAuthenticated, function(req, res, err) {
   res.render('settings.pug')
+});
+
+app.post('/settings/saved', ensureAuthenticated, function(req, res, err) {
+  console.log(req.body)
+  res.redirect('/home')
 });
 
 app.post('/emergency/submit', ensureAuthenticated, function(req, res, err) {
