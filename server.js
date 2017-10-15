@@ -34,32 +34,43 @@ app.listen(port, function() {
 });
 
 //Set up default mongoose connection
-var mongoDB = 'mongodb://heroku_zrbvl1q1:rd9fsak8ac7np3ud23hagmu5fg@ds153113.mlab.com:53113/heroku_zrbvl1q1'
-    // process.env.MONGOLAB_URI ||
-    // process.env.MONGODB_URI ||
-    // process.env.MONGOHQ_URL ||
-    // 'mongodb://127.0.0.1/my_database';
+ var mongoDB = 
+    process.env.MONGOLAB_URI ||
+    process.env.MONGODB_URI ||
+    process.env.MONGOHQ_URL ||
+    'mongodb://localhost/my_database';
 
 mongoose.connect(mongoDB, {useMongoClient: true}, function(err){
     if (err) {
-    console.log ('ERROR connecting: ' + err);
+      console.log ('ERROR connecting' + err);
     } else {
-    console.log ('Succeeded connected');
+      console.log ('Succeeded connected');
     }
-    /* Drop the DB */
-    //mongoose.connection.db.dropDatabase();
 });
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 /////////////////////////////////////////////////////////////
-//Twillio setup
+//Twillio Text messaging
 /////////////////////////////////////////////////////////////
 var accountSid = 'AC0b4dd92564225048f717aaa016bab864'; 
 var authToken = '36dd70b5af39ea604ed0e883a7a2df9d'; 
 var client = require('twilio')(accountSid, authToken);
 var recipient = '+971563052997';
+
+function send_text(message){
+  // client.messages.create({ 
+  //     to: recipient, 
+  //     from: "+16093725592", 
+  //     body: message, 
+  // }, function(err, messageres) { 
+  //   if (err){
+  //     console.log(err)
+  //   }
+  //     console.log('SMS sent', messageres.sid); 
+  // });
+}
 
 /////////////////////////////////////////////////////////////
 // Google Login API stuff
@@ -190,7 +201,7 @@ var userschema = new Schema({
     netid2: String,
     netid3: String,
 });
-var usermodel = mongoose.model('udermodel', userschema );
+var usermodel = mongoose.model('usermodel', userschema );
 
 function add_or_update(req){
   usermodel.findOne({myemail: req.session.passport.user.email}, function(err, found_user){
@@ -199,7 +210,6 @@ function add_or_update(req){
     }
     if (found_user){
         console.log('User already exists, info updated')
-        found_user.myemail = req.session.passport.user.email
         found_user.myphone = req.body.myphone
         found_user.name1 = req.body.name2
         found_user.name2 = req.body.name3
@@ -238,9 +248,38 @@ function add_or_update(req){
   })
 }
 
+
+var recordschema = new Schema({
+    email: String,
+    situ: String,
+    who: String,
+    what: String,
+    when: String
+});
+var recordmodel = mongoose.model('recordmodel', recordschema );
+function add_record(req, sit){
+  console.log(req)
+  var dt = new Date();
+  var newrecord = new recordmodel({
+    email: req.session.passport.user.email,
+    situ: sit,
+    who: req.body.who,
+    what: req.body.what,
+    when: dt.toUTCString()
+  });
+  newrecord.save(function (err, fluffy) {
+    if (err) return console.error(err);
+  });
+}
+
+
 function print_db(){
   // PRINTS ALL EMTRIES
   usermodel.find(function (err, kittens) {
+    if (err) return console.error(err);
+    console.log(kittens);
+  })
+  recordmodel.find(function (err, kittens) {
     if (err) return console.error(err);
     console.log(kittens);
   })
@@ -253,37 +292,14 @@ app.get('/home', ensureAuthenticated, function(req, res, err) {
   res.render('home.pug');
 });
 
-
 app.get('/emergency', ensureAuthenticated, function(req, res, err) {
   res.render('emergency.pug', {'myLocation': req.query.myLocation});
-  
-  // client.messages.create({ 
-  //     to: recipient, 
-  //     from: "+16093725592", 
-  //     body: req.query.myLocation + " is the location.", 
-  // }, function(err, message) { 
-  //   if (err){
-  //     console.log(err)
-  //   }
-  //     console.log('SMS sent', message.sid); 
-  // });
-  
+  send_text(req.query.myLocation)  
 });
 
 app.get('/danger', ensureAuthenticated, function(req, res, err) {
   res.render('danger.pug', {'myLocation': req.query.myLocation});
-  
-  // client.messages.create({ 
-  //     to: recipient, 
-  //     from: "+16093725592", 
-  //     body: req.query.location + " is the location.", 
-  // }, function(err, message) { 
-  //   if (err){
-  //     console.log(err)
-  //   }
-  //     console.log('SMS sent', message.sid); 
-  // });
-  
+  send_text(req.query.myLocation)
 });
 
 app.get('/tutorial', ensureAuthenticated, function(req, res, err) {
@@ -304,11 +320,15 @@ app.post('/settings/saved', ensureAuthenticated, function(req, res, err) {
 app.post('/emergency/submit', ensureAuthenticated, function(req, res, err) {
   console.log(req.body);
   res.render('emergency-submit.pug');
+  add_record(req, 'emergency');
+  send_text(req.body.what); 
 });
 
 app.post('/danger/submit', ensureAuthenticated, function(req, res, err) {
   console.log(req.body);
   res.render('danger-submit.pug');
+  add_record(req, 'danger');
+  send_text(req.body.what);  
 });
 
 app.get('/tips', ensureAuthenticated, function(req, res, err) {
