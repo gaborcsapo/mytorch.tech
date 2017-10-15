@@ -11,7 +11,7 @@ block section
 			h3 My Contact Info
 			.form-group
 				label(for='myPhone') Phone Number
-				input#myPhone.form-control(type='tel', placeholder='Phone' name='myphone')
+				input#myPhone.form-control.inputbox(type='tel', placeholder='Phone' name='myphone')
 			.form-check
 				label.form-check-label
 					input#permission.form-check-input(type='checkbox')
@@ -22,13 +22,13 @@ block section
 				h3= 'Friend ' + num + ' Contact Info'
 				.form-group
 					label(for='friend' + num + 'Name') Name
-					input(id='#friend' + num + 'Name').form-control(type="text", placeholder="Name" name='name'+num)
+					input(id='#friend' + num + 'Name').form-control.inputbox(type="text", placeholder="Name" name='name'+num)
 				.form-group
 					label(for='friend' + num + 'Id') NetID
-					input(id='#friend' + num + 'Id').form-control(type="text", placeholder="NetID" name='netid'+num)
+					input(id='#friend' + num + 'Id').inputbox.form-control(type="text", placeholder="NetID" name='netid'+num)
 				.form-group
 					label(for='friend' + num + 'Phone') Phone
-					input(id='#friend' + num + 'Phone').form-control(type="tel", placeholder="Phone" name='phone'+num)
+					input(id='#friend' + num + 'Phone').inputbox.form-control(type="tel", placeholder="Phone" name='phone'+num)
 				
 			br
 			button.btn.btn-xl(type='submit') Save
