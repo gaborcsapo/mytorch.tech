@@ -10,9 +10,9 @@ block section
 			.col-sm-10.col-md-8.mx-auto
 				input#myLocation.form-control(name="myLocation" type='text', size='50', placeholder='Current Location')
 		.btn-margin
-			button#emergencyBtn.btn-xl.btn.btn-danger(type="submit") PUBLIC SAFETY
+			button#emergencyBtn.btn-xl.btn.btn-danger(type="submit", onclick="return confirm('Are you sure? SMS WILL BE SENT TO PUBLIC SAFETY')") PUBLIC SAFETY
 		.btn-margin
-			button#dangerBtn.btn-xl.btn.btn-warning(type="submit") RA &amp; FRIENDS
+			button#dangerBtn.btn-xl.btn.btn-warning(type="submit" onclick="return confirm('Are you sure?')") RA &amp; FRIENDS
 		.btn-margin
 			button#tipsBtn.btn-xl.btn.btn-safewalk(type="submit") SAFETY TIPS
 

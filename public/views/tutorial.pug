@@ -1,0 +1,34 @@
+extends layout.pug
+
+block link
+	-var selected = 'Settings'
+
+block section
+	h1.section-heading.text-center Getting started
+	h2.my-4.text-center Please input your friends' contacts so that you can automatically reach out to them in case of emergency.
+	.col-md-8.col-xs-12.mx-auto
+		form.mt-5(action='/settings/saved', method='POST')
+			h3 My Contact Info
+			.form-group
+				label(for='myPhone') Phone Number
+				input#myPhone.form-control.inputbox(type='tel', placeholder='Phone' name='myphone')
+			.form-check
+				label.form-check-label
+					input#permission.form-check-input(type='checkbox')
+					|       Allow friends to contact me for help
+			hr
+			each num in [1,2,3]
+				br
+				h3= 'Friend ' + num + ' Contact Info'
+				.form-group
+					label(for='friend' + num + 'Name') Name
+					input(id='#friend' + num + 'Name').form-control.inputbox(type="text", placeholder="Name" name='name'+num)
+				.form-group
+					label(for='friend' + num + 'Id') NetID
+					input(id='#friend' + num + 'Id').inputbox.form-control(type="text", placeholder="NetID" name='netid'+num)
+				.form-group
+					label(for='friend' + num + 'Phone') Phone
+					input(id='#friend' + num + 'Phone').inputbox.form-control(type="tel", placeholder="Phone" name='phone'+num)
+				
+			br
+			button.btn.btn-xl(type='submit') Save

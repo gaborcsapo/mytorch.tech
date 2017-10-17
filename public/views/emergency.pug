@@ -5,8 +5,10 @@ block section
 		h3= "Public Safety is called to " + myLocation
 			strong 
 			| . You should be receiving help in 
-			strong 3 mins
+			strong 3 mins.
 			| .
+		a(href="tel:1234567890")
+			| Optionally click here to call public safety
 		p
 			| In the mean time, please help us collect more information about the incident. Every word counts.
 
@@ -19,14 +21,10 @@ block section2
 					input.form-check-input.text-center(type='checkbox')
 					| 	I was a bystander.
 			.form-group
-				label(for='nyuemail') Your NYU Email
-				input#nyuemail.form-control(type='email', aria-describedby='emailHelp', placeholder='Enter email')
-				small#emailHelp.form-text.text-muted(style='font-size: 14px;') This field is optional. You can choose to stay annonymous.
-			.form-group
 				label(for='involved') Who was involved?
-				input#involved.form-control(type='text')
+				input#involved.form-control(type='text' name='who')
 			.form-group
 				label(for='comment') What happened?
-				textarea#comment.form-control(rows='5')
+				textarea#comment.form-control(rows='5' name='what')
 				br
 				button.btn-xl.btn.btn-default(type="submit" href="/emergency/submit") Report
