@@ -3,6 +3,10 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
+nav {
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 40px;
+}
+
 p {
   line-height: 1.5;
   overflow: hidden;
