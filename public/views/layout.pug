@@ -2,7 +2,7 @@ doctype html
 html
 	block link
 		-var selected = 'Home';
-	-var menu = {'Home':'/home','Settings':'/settings','Logout':'/logout'};
+	-var menu = {'Home':'/home','My Contacts':'/contacts','Logout':'/logout'};
 
 	head
 		title mytorch
@@ -18,22 +18,24 @@ html
 	body#page-top
 		// Nav
 		nav.navbar.navbar-toggleable-md.navbar-inverse(style='background-color: #8bc34a;')
-			button.navbar-toggler.navbar-toggler-right(type='button', data-toggle='collapse', data-target='#navbarNavAltMarkup', aria-controls='navbarNavAltMarkup', aria-expanded='false', aria-label='Toggle navigation')
+			button.navbar-toggler.navbar-toggler-right(type='button', data-toggle='collapse', data-target='#myNav', aria-controls='myNav', aria-expanded='false', aria-label='Toggle navigation')
 				span.navbar-toggler-icon
-			a.navbar-brand(href='/home') mytorch
-			#navbarNavAltMarkup.collapse.navbar-collapse
-				.navbar-nav
-					each val, key in menu
+			a.navbar-brand(href='#') mytorch
+
+			#myNav.collapse.navbar-collapse
+				each val, key in menu
+					ul.navbar-nav
+						li.nav-item
 						if selected === key
-							a.nav-item.nav-link.active(href=val)= key
+							a.nav-link.active(href=val)= key
 						else
-							a.nav-item.nav-link(href=val)= key
+							a.nav-link(href=val)= key
 
 		section
 			.container
 				.row
 					.col-xs-10.col-md-8.mx-auto
-						img.header-icon.center-block(src='https://maxcdn.icons8.com/Share/icon/Sports//olympic_torch1600.png', height='150px')
+						img.header-icon.center-block.mb-5(src='../logorec1.png', height='150px')
 						block section
 
 			.container
@@ -44,6 +46,8 @@ html
 		footer
 
 		// Scripts
-		script(src='https://code.jquery.com/jquery-3.2.1.min.js')
+		script(src='https://code.jquery.com/jquery-3.1.1.slim.min.js')
+		script(src='https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js')
+		script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js')
 		script(type='text/javascript', src='/scripts/twillio.js')
 		script(type='text/javascript', src='/scripts/functions.js')

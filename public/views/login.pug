@@ -1,5 +1,11 @@
 extends layout.pug
 
 block section
-	h3.my-5.all-center Your NYU email is used only to verify that you are an NYU student.
-	a.btn-xl.btn.btn-safewalk.mx-auto(role='button', href='/auth/google') Log in with NYU
+	h1.section-heading Is someone in danger?
+	h2.section-subheading.mb-5
+		|	Use 
+		strong(style='color:#d9534f') mytorch
+		|  to contact friends, RAs, or Public Safety for help and learn how to be safe.
+
+	a.btn-xl.btn.btn-safewalk.mx-auto(role='button', href='/auth/google') NYU Log In
+	p.my-5.all-center Your netID is only used to verify your organization.<br>You can still report annoymously.

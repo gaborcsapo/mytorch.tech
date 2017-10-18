@@ -307,11 +307,11 @@ app.get('/tutorial', ensureAuthenticated, function(req, res, err) {
   res.render('tutorial.pug')
 });
 
-app.get('/settings', ensureAuthenticated, function(req, res, err) {
-  res.render('settings.pug')
+app.get('/contacts', ensureAuthenticated, function(req, res, err) {
+  res.render('contacts.pug')
 });
 
-app.post('/settings/saved', ensureAuthenticated, function(req, res, err) {
+app.post('/contacts/saved', ensureAuthenticated, function(req, res, err) {
   add_or_update(req)
   print_db()
   res.redirect('/home')

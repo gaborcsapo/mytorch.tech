@@ -234,10 +234,19 @@ small {
 }
 
 .section-heading {
-  text-transform: initial;
-  font-weight: bold;
-  text-align: center;
+      text-transform: initial;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1;
+    font-size: 3rem;
+    margin-bottom: 3rem;
 }
+
+.section-subheading {
+      font-size: 1.5rem;
+    line-height: 1.5;
+}
+
 
 .header-icon {
   margin: 1rem;
