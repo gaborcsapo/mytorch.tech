@@ -15,11 +15,24 @@ $("#emergencyBtn").on('click', function() {
 $("#dangerBtn").on('click', function() {
   $("#locationSubmit").attr("action", "/danger");
 });
+$("#friendsBtn").on('click', function() {
+  $("#locationSubmit").attr("action", "/friends");
+});
 $("#tipsBtn").on('click', function() {
   $("#locationSubmit").attr("action", "/tips");
 });
 
+$("#alcPoisonBtn").click(function(){
+    $("#alcPoison").toggle();
+});
 
+$("#sexualAssaultBtn").click(function(){
+    $("#sexualAssault").toggle();
+});
+
+$("#firstAidBtn").click(function(){
+    $("#firstAid").toggle();
+});
 
 $(document).ready(function() {
 	var currentBoxNumber = 0;

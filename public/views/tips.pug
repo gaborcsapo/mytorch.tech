@@ -2,14 +2,18 @@ extends layout.pug
 
 block section
 	.mt-3.mb-5.guides
-		h2.pb-3 How to respond
-		a(href="#alcPoison") Alcohol poisoning
-		br
-		a(href="#sexualAssault") Sexual assault
-		br
-		a(href="#firstAid") First aid
-	hr
+		h1.section-heading.pb-3 How to respond
+		.container
+			.row.text-center
+				.col-md-12
+					button.btn.btn-tip#alcPoisonBtn Alcohol Poisoning
+				.col-md-12
+					button.btn.btn-tip#sexualAssaultBtn Sexual Assault 
+				.col-md-12
+					button.btn.btn-tip#firstAidBtn First Aid
+
 	#alcPoison.my-5
+		hr
 		h1.pb-3 Alcohol Poisoning
 		p Source:
 			a(href="http://www.mayoclinic.org/diseases-conditions/alcohol-poisoning/symptoms-causes/dxc-20211603")  Mayo Clinic
@@ -107,8 +111,9 @@ block section
 			li
 				strong Death.
 				|  Any of the issues above can lead to death.
-	hr
+	
 	#sexualAssault.my-5
+		hr
 		h1.pb-3 Sexual assault
 		p Source:
 			a(href="https://www.womenshealth.gov/a-z-topics/sexual-assault")  Women's Health Gov
@@ -150,8 +155,9 @@ block section
 		p You can help a friend or family member who has been sexually assaulted by listening, offering comfort, and not judging. Reinforce the message that she or he is not at fault and that it is natural to feel angry, confused, or ashamed — or any combination of feelings.
 
 		p Ask your loved one if they would like you to go with them to the hospital or to counseling. If they decide to report the crime to the police, ask if they would like you to go with them. Let them know that professional help is available. Let them know about the hotlines to call and talk to someone.
-	hr
+	
 	#firstAid.my-5
+		hr
 		h1.pb-3 First Aid
 		p Source:
 			a(href="http://www.redcross.org/take-a-class/first-aid/perfoming-first-aid/first-aid-steps")  Red Cross

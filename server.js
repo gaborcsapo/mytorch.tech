@@ -60,10 +60,11 @@ var client = require('twilio')(accountSid, authToken);
 var recipient = '+971563052997';
 
 function send_text(message){
+  var messageBody = "EMERGENCY. Urgent help requested at " + message + ". Please go to the location now."
   // client.messages.create({ 
   //     to: recipient, 
   //     from: "+16093725592", 
-  //     body: message, 
+  //     body: messageBody, 
   // }, function(err, messageres) { 
   //   if (err){
   //     console.log(err)
@@ -293,12 +294,21 @@ app.get('/home', ensureAuthenticated, function(req, res, err) {
 });
 
 app.get('/emergency', ensureAuthenticated, function(req, res, err) {
-  res.render('emergency.pug', {'myLocation': req.query.myLocation});
-  send_text(req.query.myLocation)  
+  res.render('emergency.pug', {'building': req.query.building, 'room': req.query.room, 
+    'situation': req.query.situation, 'buildingRes': req.query.buildingRes, 'helpFrom' : 'Public Safety'});
+  console.log(req.query)
+  send_text(req.query.myLocation)
 });
 
 app.get('/danger', ensureAuthenticated, function(req, res, err) {
-  res.render('danger.pug', {'myLocation': req.query.myLocation});
+  res.render('emergency.pug', {'building': req.query.building, 'room': req.query.room, 
+    'situation': req.query.situation, 'buildingRes': req.query.buildingRes, 'helpFrom' : 'RAs on duty'});
+  send_text(req.query.myLocation)
+});
+
+app.get('/friends', ensureAuthenticated, function(req, res, err) {
+  res.render('emergency.pug', {'building': req.query.building, 'room': req.query.room, 
+    'situation': req.query.situation, 'buildingRes': req.query.buildingRes, 'helpFrom' : 'your friends'});
   send_text(req.query.myLocation)
 });
 
@@ -326,8 +336,15 @@ app.post('/emergency/submit', ensureAuthenticated, function(req, res, err) {
 
 app.post('/danger/submit', ensureAuthenticated, function(req, res, err) {
   console.log(req.body);
-  res.render('danger-submit.pug');
+  res.render('emergency-submit.pug');
   add_record(req, 'danger');
+  send_text(req.body.what);  
+});
+
+app.post('/friends/submit', ensureAuthenticated, function(req, res, err) {
+  console.log(req.body);
+  res.render('emergency-submit.pug');
+  add_record(req, 'sub-danger');
   send_text(req.body.what);  
 });
 

@@ -1,36 +1,62 @@
 extends layout.pug
 
 block section
-	h1.section-heading
+	h1.section-heading Is someone feeling unsafe?
+	h2.section-subheading.mb-5
+		|	Use 
 		strong(style='color:#d9534f') mytorch
-		|  is here to help you.
-	h3 Call public safety, RAs or friends whenever you are in high-risk situations.
-	
-	form#locationSubmit.form-horizontal(method="GET" action="/emergency")
-		.form-group.form-group-lg
-			br
-			.col-sm-10.col-md-8.mx-auto
-				input#myLocation.form-control(name="myLocation" type='text', size='50', placeholder='Current Location')
-		.btn-margin
-			button#emergencyBtn.btn-xl.btn.btn-danger(type="submit", onclick="return confirm('Are you sure? SMS WILL BE SENT TO PUBLIC SAFETY')") PUBLIC SAFETY
-		.btn-margin
-			button#dangerBtn.btn-xl.btn.btn-warning(type="submit" onclick="return confirm('Are you sure?')") RA &amp; FRIENDS
-		.btn-margin
-			button#tipsBtn.btn-xl.btn.btn-safewalk(type="submit") SAFETY TIPS
+		|  to contact friends, RAs, or Public Safety for help, for you or others.
 
-block section2
-	.my-5
-		hr
-		h2.my-4 When to call Public Safety
-		ul
-			li Alcohol poisoning, unconscious person with low body temperature, pale skin, slow breathing
-			li Violence between two people
-			li Sexual harassment
-			li Injury
-		h2.my-4 When to call RA or friends
-		ul
-			li Potentially escalating situation
-			li Verbal abuse
-			li Agression
-			li Unsafe environment
-	
+	.col-xs-12.col-md-10.mx-auto
+		form#locationSubmit.form-horizontal(method="GET" action="/emergency" data-toggle="validator" enctype="multipart/form-data")
+			.form-group.form-group-lg
+				label(for="building") Building Number
+				select#building.form-control(name="building" required="" data-required-error="Building is required")
+					option(value="")
+					option(value='A1') A1
+					option(value='A2') A2
+					option(value='A3') A3
+					option(value='A4') A4
+					option(value='A5') A5
+					option(value='A6') A6
+					option(value='B1') B1 Faculty Residence
+					option(value='B1') B2 Faculty Residence
+					option(value='C1') C1 ERB
+					option(value='C2') C2 Campus Center
+					option(value='C3') C3 Arts Center
+					option(value='D1') D1 Student Union
+					option(value='D1') D2 East Dining Hall
+					option(value='Track') Outdoor Track
+					option(value='Parking') Parking Lot
+					option(value='otherBuilding') Other
+
+			.form-group.form-group-lg
+				label(for="buildingRes") Residential Building (If Applicable)
+				select#building.form-control(name="buildingRes")
+					option(value="")
+					option(value='A') A
+					option(value='B') B
+					option(value='C') C
+
+			.form-group.form-group-lg
+				label(for="room") Location Description
+				input#room.form-control(name="room" type='text', size='50', placeholder='e.g. Room Number' required="" data-required-error="Further Location Description is required")
+
+			.form-group.form-group-lg
+				label(for="situation") Situation
+				select#building.form-control(name="situation" required="" data-required-error="Situation Description is Required")
+					option(value="")
+					option(value='discomfort') Social Discomfort
+					option(value='uti') Under the Influence
+					option(value='injury') Injury &amp; Sickness
+					option(value='violence') Violence
+					option(value='sexual') Sexual Harassment
+					option(value='otherSituation') Other
+			
+			h1.section-heading.mt-5 Who to Contact?
+			.btn-margin
+				button#friendsBtn.btn-xl.btn.btn-safewalk(type="submit") FRIENDS
+			.btn-margin
+				button#dangerBtn.btn-xl.btn.btn-warning(type="submit" onclick="return confirm('You are about to call Residential Assistants on duty.')") RESED &amp; RA
+			.btn-margin
+				button#emergencyBtn.btn-xl.btn.btn-danger(type="submit", onclick="return confirm('We are about to contact Public Safety. Confirm only if there is an emergency, severe sickness, violence etc.')") PUBLIC SAFETY

@@ -2,7 +2,7 @@ doctype html
 html
 	block link
 		-var selected = 'Home';
-	-var menu = {'Home':'/home','My Contacts':'/contacts','Logout':'/logout'};
+	-var menu = {'Home':'/home','My Contacts':'/contacts', 'Safety Tips': '/tips', 'Logout':'/logout'};
 
 	head
 		title mytorch
@@ -10,7 +10,7 @@ html
 		meta(name='viewport', content='width=device-width, initial-scale=1')
 		link(rel='stylesheet', href='css/main.css')
 		link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css')
-		link(href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:400,700" rel="stylesheet")
+		link(href="https://fonts.googleapis.com/css?family=Lato:400,700,900|Open+Sans:400,700" rel="stylesheet")
 
 
 		block diffDir
@@ -51,3 +51,4 @@ html
 		script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js')
 		script(type='text/javascript', src='/scripts/twillio.js')
 		script(type='text/javascript', src='/scripts/functions.js')
+		script(type='text/javascript', src='/scripts/validator.js')

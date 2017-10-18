@@ -2,29 +2,26 @@ extends layout.pug
 
 block section
 	.alert.alert-success
-		h3= "Public Safety is called to " + myLocation
-			strong 
-			| . You should be receiving help in 
-			strong 3 mins.
-			| .
-		a(href="tel:1234567890")
-			| Optionally click here to call public safety
-		p
-			| In the mean time, please help us collect more information about the incident. Every word counts.
+		h3= "Messaged " + helpFrom + " to help someone at " + building + buildingRes + " " + room + "."
+
+		a(href="tel:+97126287777")
+			img.rounded.mx-auto.d-block(src='http://icons.iconarchive.com/icons/graphicloads/100-flat/256/phone-icon.png' height="100")
+		p.text-center.my-3= "Urgent? Click on the phone to call " + helpFrom + " directly."
 
 block section2
 	.report
-		h2 Describe the Incident
+		h1.section-heading.mt-5 Report the Incident
+		h4.report While waiting, please help us collect more information about what happened.
+
 		form.form-horizontal(method="POST" action="/emergency/submit")
-			.form-check
-				label.form-check-label
-					input.form-check-input.text-center(type='checkbox')
-					| 	I was a bystander.
+			.form-group
+				label(for='netid') Your NetID
+				input#netid.form-control(type='text' name='netid' placeholder="Leave empty for annonymous reporting")
 			.form-group
 				label(for='involved') Who was involved?
 				input#involved.form-control(type='text' name='who')
 			.form-group
 				label(for='comment') What happened?
 				textarea#comment.form-control(rows='5' name='what')
-				br
-				button.btn-xl.btn.btn-default(type="submit" href="/emergency/submit") Report
+				
+			button.btn-xl.btn.btn-default(type="submit" href="/emergency/submit") Report
