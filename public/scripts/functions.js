@@ -23,14 +23,20 @@ $("#tipsBtn").on('click', function() {
 });
 
 $("#alcPoisonBtn").click(function(){
+	$("#sexualAssault").hide();
+	$("#firstAid").hide();
     $("#alcPoison").toggle();
 });
 
 $("#sexualAssaultBtn").click(function(){
+    $("#alcPoison").hide();
+	$("#firstAid").hide();
     $("#sexualAssault").toggle();
 });
 
 $("#firstAidBtn").click(function(){
+	$("#alcPoison").hide();
+	$("#sexualAssault").hide();
     $("#firstAid").toggle();
 });
 
