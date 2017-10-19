@@ -1,12 +1,12 @@
 extends layout.pug
 
 block link
-	-var selected = 'Settings'
+	-var selected = 'My Contacts'
 
 block section
-	h1.section-heading.text-center Settings
+	h1.section-heading.text-center My Contacts
 	.col-md-8.col-xs-12.mx-auto
-		form.mt-5(action='/settings/saved', method='POST')
+		form.mt-5(action='/contacts/saved', method='POST')
 			h3 My Contact Info
 			.form-group
 				label(for='myPhone') Phone Number
