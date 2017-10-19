@@ -1,6 +1,6 @@
-# Project Title
+# mytorch.tech
 
-One Paragraph of project description goes here
+Campus safety help request app for NYU Abu Dhabi (or any other campus!) Check out the app here: [mytorch.tech](https://mytorchtech.herokuapp.com).
 
 ## Getting Started
 
