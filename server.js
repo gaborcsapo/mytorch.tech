@@ -88,11 +88,22 @@ var recipient = '+971563052997';
 This is the main send_text() method to send messages to appropriate bodies.
 Right now it's receiving the query body from the GET request from home.pug
 The locationStr is the string to indicate the address string
+If the student has a phone number, it is sent in the SMS to allow direct contact
 */
 
-function send_text(reqBody, recipient){
+function send_text(reqBody, recipient, user){
   var locationStr = reqBody.building + reqBody.buildingRes + " " + reqBody.room
   var messageBody = "EMERGENCY. Urgent help requested at " + locationStr + " for "+reqBody.situation+". Please go to the location now."
+  
+  usermodel.findOne({myemail: email}, function(err, found_user){
+    if (err) {
+        console.log("The error while accessing the colleciton is " + err);
+    }
+    if (found_user){
+        messageBody = messageBody + ' Contact student at: ' + found_user.myphone
+    }
+  })
+
   client.messages.create({ 
       to: recipient, 
       from: "+16093725592", 
@@ -380,7 +391,7 @@ app.get('/emergency', ensureAuthenticated, function(req, res, err) {
   console.log(req.query)
   //UNCOMMENT THIS AND INPUT PUBLIC SAFETY's NUMBER
   //var recipient = PUBLIC SAFETY'S NUMBER
-  send_text(req.query, recipient)
+  send_text(req.query, recipient, req.session.passport.user.email)
 });
 
 /*
@@ -393,7 +404,7 @@ app.get('/danger', ensureAuthenticated, function(req, res, err) {
     'situation': req.query.situation, 'buildingRes': req.query.buildingRes, 'helpFrom' : 'RAs on duty'});
   //UNCOMMENT THIS AND INPUT RA's NUMBER
   //var recipient = RA'S NUMBER
-  send_text(req.query, recipient)
+  send_text(req.query, recipient, req.session.passport.user.email)
 });
 
 /*
@@ -406,7 +417,7 @@ app.get('/friends', ensureAuthenticated, function(req, res, err) {
     'situation': req.query.situation, 'buildingRes': req.query.buildingRes, 'helpFrom' : 'your friends'});
   //Below should be a for loop to iterate through all of your friends' numbers
   //var recipient = RA'S NUMBER
-  send_text(req.query, recipient)
+  send_text(req.query, recipient, req.session.passport.user.email)
 });
 
 /*
