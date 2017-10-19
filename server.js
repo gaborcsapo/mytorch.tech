@@ -61,16 +61,16 @@ var recipient = '+971563052997';
 
 function send_text(message){
   var messageBody = "EMERGENCY. Urgent help requested at " + message + ". Please go to the location now."
-  // client.messages.create({ 
-  //     to: recipient, 
-  //     from: "+16093725592", 
-  //     body: messageBody, 
-  // }, function(err, messageres) { 
-  //   if (err){
-  //     console.log(err)
-  //   }
-  //     console.log('SMS sent', messageres.sid); 
-  // });
+  client.messages.create({ 
+      to: recipient, 
+      from: "+16093725592", 
+      body: messageBody, 
+  }, function(err, messageres) { 
+    if (err){
+      console.log(err)
+    }
+      console.log('SMS sent', messageres.sid); 
+  });
 }
 
 /////////////////////////////////////////////////////////////
