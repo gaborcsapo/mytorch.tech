@@ -95,7 +95,7 @@ function send_text(reqBody, recipient, user){
   var locationStr = reqBody.building + reqBody.buildingRes + " " + reqBody.room
   var messageBody = "EMERGENCY. Urgent help requested at " + locationStr + " for "+reqBody.situation+". Please go to the location now."
   
-  usermodel.findOne({myemail: email}, function(err, found_user){
+  usermodel.findOne({myemail: user}, function(err, found_user){
     if (err) {
         console.log("The error while accessing the colleciton is " + err);
     }
