@@ -59,8 +59,9 @@ var authToken = '36dd70b5af39ea604ed0e883a7a2df9d';
 var client = require('twilio')(accountSid, authToken);
 var recipient = '+971563052997';
 
-function send_text(message){
-  var messageBody = "EMERGENCY. Urgent help requested at " + message + ". Please go to the location now."
+function send_text(reqBody, recipient){
+  var locationStr = reqBody.building + reqBody.buildingRes + " " + reqBody.room
+  var messageBody = "EMERGENCY. Urgent help requested at " + locationStr + " for "+reqBody.situation+". Please go to the location now."
   client.messages.create({ 
       to: recipient, 
       from: "+16093725592", 
@@ -257,7 +258,9 @@ var recordschema = new Schema({
     what: String,
     when: String
 });
+
 var recordmodel = mongoose.model('recordmodel', recordschema );
+
 function add_record(req, sit){
   console.log(req)
   var dt = new Date();
@@ -297,19 +300,21 @@ app.get('/emergency', ensureAuthenticated, function(req, res, err) {
   res.render('emergency.pug', {'building': req.query.building, 'room': req.query.room, 
     'situation': req.query.situation, 'buildingRes': req.query.buildingRes, 'helpFrom' : 'Public Safety'});
   console.log(req.query)
-  send_text(req.query.myLocation)
+  //var recipient = PUBLIC SAFETY'S NUMBER
+  send_text(req.query, recipient)
 });
 
 app.get('/danger', ensureAuthenticated, function(req, res, err) {
   res.render('emergency.pug', {'building': req.query.building, 'room': req.query.room, 
     'situation': req.query.situation, 'buildingRes': req.query.buildingRes, 'helpFrom' : 'RAs on duty'});
-  send_text(req.query.myLocation)
+  //var recipient = PUBLIC SAFETY'S NUMBER
+  send_text(req.query, recipient)
 });
 
 app.get('/friends', ensureAuthenticated, function(req, res, err) {
   res.render('emergency.pug', {'building': req.query.building, 'room': req.query.room, 
     'situation': req.query.situation, 'buildingRes': req.query.buildingRes, 'helpFrom' : 'your friends'});
-  send_text(req.query.myLocation)
+  send_text(req.query, recipient)
 });
 
 app.get('/tutorial', ensureAuthenticated, function(req, res, err) {
@@ -331,21 +336,18 @@ app.post('/emergency/submit', ensureAuthenticated, function(req, res, err) {
   console.log(req.body);
   res.render('emergency-submit.pug');
   add_record(req, 'emergency');
-  send_text(req.body.what); 
 });
 
 app.post('/danger/submit', ensureAuthenticated, function(req, res, err) {
   console.log(req.body);
   res.render('emergency-submit.pug');
   add_record(req, 'danger');
-  send_text(req.body.what);  
 });
 
 app.post('/friends/submit', ensureAuthenticated, function(req, res, err) {
   console.log(req.body);
   res.render('emergency-submit.pug');
   add_record(req, 'sub-danger');
-  send_text(req.body.what);  
 });
 
 app.get('/tips', ensureAuthenticated, function(req, res, err) {
