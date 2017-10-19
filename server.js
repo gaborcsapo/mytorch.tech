@@ -104,6 +104,8 @@ function send_text(reqBody, recipient, user){
     }
   })
 
+  console.log(user, found_user)
+
   client.messages.create({ 
       to: recipient, 
       from: "+16093725592", 
