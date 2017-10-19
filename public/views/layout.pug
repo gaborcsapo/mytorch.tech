@@ -1,3 +1,8 @@
+//-
+	This is the basic layout.pug skeleton for all views
+	The link block is for making different nav bar words "activated" depending on which page you are curerntly on
+	You can see more in the navbar section below
+
 doctype html
 html
 	block link
@@ -11,7 +16,6 @@ html
 		link(rel='stylesheet', href='css/main.css')
 		link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css')
 		link(href="https://fonts.googleapis.com/css?family=Lato:400,700,900|Open+Sans:400,700" rel="stylesheet")
-
 
 		block diffDir
 
@@ -31,6 +35,10 @@ html
 						else
 							a.nav-link(href=val)= key
 
+		//-
+			Each block of text is rendered in sections. You can add any element you like by inherting this section or section2 blocks in other .pug files
+			These blocks are all responsive, prioritized for mobile
+
 		section
 			.container
 				.row
@@ -43,6 +51,9 @@ html
 					.col-xs-10.col-md-8.mx-auto
 						block section2
 		
+		//-
+			For any javascript functions you would like to add, you can add them in functions.js file and they will be accessible from all pug views.
+			
 		footer
 
 		// Scripts

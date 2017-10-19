@@ -1,4 +1,6 @@
-
+///////////////////////////////////////////////////////////////////////
+//Express.js Configuration
+///////////////////////////////////////////////////////////////////////
 /*
 function initialize() {
 	var input = document.getElementById('myLocation');
@@ -7,6 +9,12 @@ function initialize() {
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
+*/
+
+
+/*
+Below 3 functions are for routing the submit button to differet pages even when there is only one form on the /home page
+So right now the default is to submit to /emergency but if other buttons are clicked, the button's action attribute is changed
 */
 
 $("#emergencyBtn").on('click', function() {
@@ -18,9 +26,10 @@ $("#dangerBtn").on('click', function() {
 $("#friendsBtn").on('click', function() {
   $("#locationSubmit").attr("action", "/friends");
 });
-$("#tipsBtn").on('click', function() {
-  $("#locationSubmit").attr("action", "/tips");
-});
+
+/*
+Below 3 are for toggling safety tips on the /tips page
+*/
 
 $("#alcPoisonBtn").click(function(){
 	$("#sexualAssault").hide();
@@ -40,6 +49,9 @@ $("#firstAidBtn").click(function(){
     $("#firstAid").toggle();
 });
 
+/*
+Below method is to ensure that pressing enter takes you to the next form field instead of submitting the form!!!
+*/
 $(document).ready(function() {
 	var currentBoxNumber = 0;
 	$(".form-control").keydown(function (event) {
