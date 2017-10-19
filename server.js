@@ -104,7 +104,7 @@ function send_text(reqBody, recipient, user){
     }
   })
 
-  console.log(user, found_user)
+  console.log(user)
 
   client.messages.create({ 
       to: recipient, 
