@@ -30,7 +30,7 @@ all html/front end pages are rendered using pug.js and live in the public/views 
 app.use(express.static('public'));
 app.set("view engine", "pug");
 app.set("views", "public/views");
-app.use(favicon('public','favicon.ico'));
+//app.use(favicon('public','favicon.ico'));
 
 /*
 Extra set up for bodyParser. Necessary for parsing request and response queries
