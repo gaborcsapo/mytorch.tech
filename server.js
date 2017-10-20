@@ -67,56 +67,6 @@ mongoose.connect(mongoDB, {useMongoClient: true}, function(err){
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-///////////////////////////////////////////////////////////////////////
-//Twillio Text Messaging API
-///////////////////////////////////////////////////////////////////////
-
-/*
-the receipient number variable is currently hardcoded to go to Gabor Csapo's phone number
-*/
-var accountSid = 'AC0b4dd92564225048f717aaa016bab864'; 
-var authToken = '36dd70b5af39ea604ed0e883a7a2df9d'; 
-var client = require('twilio')(accountSid, authToken);
-
-/*
-below recipient variable should be deleted and the corresponding phone number 
-for each help request should be passed as a parameter to the send_text() function.
-*/
-var recipient = '+971563052997';
-
-/*
-This is the main send_text() method to send messages to appropriate bodies.
-Right now it's receiving the query body from the GET request from home.pug
-The locationStr is the string to indicate the address string
-If the student has a phone number, it is sent in the SMS to allow direct contact
-*/
-
-function send_text(reqBody, recipient, user){
-  var locationStr = reqBody.building + reqBody.buildingRes + " " + reqBody.room
-  var messageBody = "EMERGENCY. Urgent help requested at " + locationStr + " for "+reqBody.situation+". Please go to the location now."
-  
-  usermodel.findOne({myemail: user}, function(err, found_user){
-    if (err) {
-        console.log("The error while accessing the colleciton is " + err);
-    }
-    if (found_user){
-        messageBody = messageBody + ' Contact student at: ' + found_user.myphone
-    }
-  })
-
-  console.log(user)
-
-  client.messages.create({ 
-      to: recipient, 
-      from: "+16093725592", 
-      body: messageBody, 
-  }, function(err, messageres) { 
-    if (err){
-      console.log(err)
-    }
-      console.log('SMS sent', messageres.sid); 
-  });
-}
 
 ///////////////////////////////////////////////////////////////////////
 //Google Passport Authentication Set-up
@@ -268,8 +218,10 @@ function add_or_update(req){
     if (err) {
         console.log("The error while updating colleciton is " + err);
     }
+    console.log(req.session)
+    console.log(req.body)
     if (found_user){
-        console.log('User already exists, info updated')
+        console.log('Updating existing information:', found_user)
         found_user.myphone = req.body.myphone
         found_user.name1 = req.body.name2
         found_user.name2 = req.body.name3
@@ -341,9 +293,57 @@ function print_db(){
     if (err) return console.error(err);
     console.log(kittens);
   })
-  recordmodel.find(function (err, kittens) {
-    if (err) return console.error(err);
-    console.log(kittens);
+  // recordmodel.find(function (err, kittens) {
+  //   if (err) return console.error(err);
+  //   console.log(kittens);
+  // })
+}
+
+///////////////////////////////////////////////////////////////////////
+//Twillio Text Messaging API
+///////////////////////////////////////////////////////////////////////
+
+/*
+the receipient number variable is currently hardcoded to go to Gabor Csapo's phone number
+*/
+var accountSid = 'AC0b4dd92564225048f717aaa016bab864'; 
+var authToken = '36dd70b5af39ea604ed0e883a7a2df9d'; 
+var client = require('twilio')(accountSid, authToken);
+
+/*
+below recipient variable should be deleted and the corresponding phone number 
+for each help request should be passed as a parameter to the send_text() function.
+*/
+var recipient = '+971563052997';
+
+/*
+This is the main send_text() method to send messages to appropriate bodies.
+Right now it's receiving the query body from the GET request from home.pug
+The locationStr is the string to indicate the address string
+If the student has a phone number, it is sent in the SMS to allow direct contact
+*/
+
+function send_text(reqBody, recipient, user){
+  var locationStr = reqBody.building + reqBody.buildingRes + " " + reqBody.room
+  
+  usermodel.findOne({myemail: user}, function(err, found_user){
+    if (err) {
+        console.log("The error while accessing the colleciton is " + err);
+    }
+    var messageBody = "EMERGENCY. Urgent help requested at " + locationStr + " for "+reqBody.situation+". Please go to the location now."
+    if (found_user){
+        messageBody = messageBody + ' Contact student at: ' + found_user.myphone
+    }
+    client.messages.create({ 
+        to: recipient, 
+        from: "+16093725592", 
+        body: messageBody, 
+    }, function(err, messageres) { 
+      if (err){
+        console.log(err)
+      }
+        console.log('SMS sent', messageres.sid); 
+    });  
   })
 }
 
