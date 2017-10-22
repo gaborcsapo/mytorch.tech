@@ -17,7 +17,7 @@ These instructions will get you a copy of the project up and running on your loc
 ```
 sudo service mongod start
 ```
-- Heroku, if you want to install it.
+- Heroku, if you want to deploy it.
 
 ### Installing
 
@@ -37,7 +37,7 @@ and the server should be up and running on localhost:8002.
  
 
 ## Built With 
-*Click on link to go to tutorials!*
+*Click on links to go to tutorials!*
 
 * [Passport.js Google Oauth2](https://github.com/mstade/passport-google-oauth2) - The login framework. Note: you need to set up your Google API console for webhooks. I set mine for localhost:8002.
 * [Twilio](https://support.twilio.com/hc/en-us/articles/235288367-Receiving-two-way-SMS-messages-with-Twilio) - SMS framework
